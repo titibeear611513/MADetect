@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf8">
         <title>MADetect home page</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+        <link rel="stylesheet" href="home.css">
 
         <!-- 字體 -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,46 +24,77 @@
             <div class="side">
                 <div class="header">
                     <div class="name">
-                        <a class="name" href="">MADetect</a>
+                        <a class="name" href="homepage.html">MADetect</a>
+                    </div>
+                </div>
+                <div class="l_create">
+                    <div class="l_create_l">
+                        <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#create" ><i class="fa-regular fa-square-plus"></i></a>
+                    </div>
+                    <div class="l_create_r">
+                        <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#question" ><i class="fa-solid fa-circle-question"></i></a>
                     </div>
                 </div>
                 <div class="l_middle">
                     <div class="title">
                         <div class="text">青春痘</div>
                         <div class="icon">
-                            <i class="fa-solid fa-pen-to-square"></i>
+                            <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#edit" ><i class="fa-solid fa-pen-to-square"></i></a>
                         </div>
                         <div class="icon">
-                            <i class="fa-solid fa-trash-can"></i> 
+                            <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#delete" ><i class="fa-solid fa-trash-can"></i></a> 
                         </div>   
                     </div>
                     <div class="title">
                         <div class="text">青春痘</div>
                         <div class="icon">
-                            <i class="fa-solid fa-pen-to-square"></i>
+                            <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#edit" ><i class="fa-solid fa-pen-to-square"></i></a>
                         </div>
                         <div class="icon">
-                            <i class="fa-solid fa-trash-can"></i> 
+                            <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#delete" ><i class="fa-solid fa-trash-can"></i></a> 
                         </div>   
-                    </div>
-                    <div class="title">
+                    </div>                    <div class="title">
                         <div class="text">青春痘</div>
                         <div class="icon">
-                            <i class="fa-solid fa-pen-to-square"></i>
+                            <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#edit" ><i class="fa-solid fa-pen-to-square"></i></a>
                         </div>
                         <div class="icon">
-                            <i class="fa-solid fa-trash-can"></i> 
+                            <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#delete" ><i class="fa-solid fa-trash-can"></i></a> 
                         </div>   
-                    </div>
-                    <div class="title">
+                    </div>                    <div class="title">
                         <div class="text">青春痘</div>
                         <div class="icon">
-                            <i class="fa-solid fa-pen-to-square"></i>
+                            <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#edit" ><i class="fa-solid fa-pen-to-square"></i></a>
                         </div>
                         <div class="icon">
-                            <i class="fa-solid fa-trash-can"></i> 
+                            <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#delete" ><i class="fa-solid fa-trash-can"></i></a> 
+                        </div>   
+                    </div>                    <div class="title">
+                        <div class="text">青春痘</div>
+                        <div class="icon">
+                            <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#edit" ><i class="fa-solid fa-pen-to-square"></i></a>
+                        </div>
+                        <div class="icon">
+                            <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#delete" ><i class="fa-solid fa-trash-can"></i></a> 
+                        </div>   
+                    </div>                    <div class="title">
+                        <div class="text">青春痘</div>
+                        <div class="icon">
+                            <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#edit" ><i class="fa-solid fa-pen-to-square"></i></a>
+                        </div>
+                        <div class="icon">
+                            <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#delete" ><i class="fa-solid fa-trash-can"></i></a> 
+                        </div>   
+                    </div>                    <div class="title">
+                        <div class="text">青春痘</div>
+                        <div class="icon">
+                            <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#edit" ><i class="fa-solid fa-pen-to-square"></i></a>
+                        </div>
+                        <div class="icon">
+                            <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#delete" ><i class="fa-solid fa-trash-can"></i></a> 
                         </div>   
                     </div>
+
                     
                 </div>
                 <div class="l_report">
@@ -74,7 +105,7 @@
                         <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#account" class="l_word">Setting</a>
                     </div>
                     <div class="l_bottom_r">
-                        <a class="r_word" href="/signout">Log Out</a>
+                        <a class="r_word" href="login.html">Log Out</a>
                     </div>
                 </div>
             </div>
@@ -85,7 +116,7 @@
                       <div class="editable-content" contenteditable="true"></div>
                     </div>
                     <div class="button-container">
-                      <button class="custom-button" onclick="addNewElements()"><img src="/static/pic/send4.png" width="24px" height="24px"></button>
+                      <button class="custom-button" onclick="addNewElements()"><img src="send4.png" width="24px" height="24px"></button>
                     </div>
             </div>
         </div>
@@ -277,7 +308,7 @@
 
                 var newButton = document.createElement('button');
                 newButton.classList.add('custom-button');
-                newButton.innerHTML = '<img src="/static/pic/send4.png" width="24px" height="24px" alt="送出">';
+                newButton.innerHTML = '<img src="send4.png" width="24px" height="24px" alt="送出">';
                 newButton.onclick = function() {
                     addNewElementsD(newDivDgreen);
                 };
@@ -312,7 +343,7 @@
 
                 var newButton = document.createElement('button');
                 newButton.classList.add('custom-button');
-                newButton.innerHTML = '<img src="/static/pic/send4.png" width="24px" height="24px" alt="送出">';
+                newButton.innerHTML = '<img src="send4.png" width="24px" height="24px" alt="送出">';
                 newButton.onclick = function() {
                     addNewElementsD(newDivDgreen);
                 };
@@ -364,8 +395,44 @@
                 newDivBlackLine.classList.add('black-line');
                 return newDivBlackLine;
             }
-                        //睜眼閉眼
-                        var checkEye = document.getElementById("checkEye1");
+            function addProject(){
+                // Get the container element where the new project will be added
+                const lMiddleContainer = document.querySelector('.l_middle');
+
+                // Create a new div element for the project title
+                const newProjectDiv = document.createElement('div');
+                newProjectDiv.classList.add('title');
+
+                // Create the inner elements for the project title
+                const projectTextDiv = document.createElement('div');
+                projectTextDiv.classList.add('text');
+                projectTextDiv.textContent = 'New Project';
+
+                const editIconDiv = document.createElement('div');
+                editIconDiv.classList.add('icon');
+                const editIcon = document.createElement('i');
+                editIcon.classList.add('fa-solid', 'fa-pen-to-square');
+                editIconDiv.appendChild(editIcon);
+
+                const deleteIconDiv = document.createElement('div');
+                deleteIconDiv.classList.add('icon');
+                const deleteIcon = document.createElement('i');
+                deleteIcon.classList.add('fa-solid', 'fa-trash-can');
+                deleteIconDiv.appendChild(deleteIcon);
+
+                // Append inner elements to the new project div
+                newProjectDiv.appendChild(projectTextDiv);
+                newProjectDiv.appendChild(editIconDiv);
+                newProjectDiv.appendChild(deleteIconDiv);
+
+                // Find the first .title element in the .l_middle container
+                const firstTitleElement = lMiddleContainer.querySelector('.title');
+
+                // Insert the new project div before the first .title element
+                lMiddleContainer.insertBefore(newProjectDiv, firstTitleElement);
+            }
+            //睜眼閉眼
+            var checkEye = document.getElementById("checkEye1");
             var floatingPassword =  document.getElementById("floatingPassword1");
             checkEye.addEventListener("click", function(e){
                 if(e.target.classList.contains('fa-eye')){

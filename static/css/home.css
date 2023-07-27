@@ -13,6 +13,7 @@ body {
 
 .l_container{
     display: flex;
+    overflow-y: hidden;
 }
 
 .side{
@@ -37,7 +38,7 @@ body {
 	height: 7.5vh;
 	display: flex;
 	align-items: center;
-	padding: 0 65px;
+	padding: 0 70px;
 }
 
 .side .header .name{
@@ -47,10 +48,73 @@ body {
     text-decoration: none;
 }
 
+.side .l_create{
+    max-width: 300px;
+    height: 3.7vh;
+    display: flex;
+    font-size: 22px;
+}
+
+.side .l_create .l_create_l{
+    width: 50%;
+    padding: 0 21.5%;
+}
+
+.side .l_create .l_create_l a{
+    color: black;
+}
+
+.side .l_create .l_create_r{
+    width: 50%;
+    padding: 0 24.5%;
+}
+
+.side .l_create .l_create_r a{
+    color: black;
+}
+
 .side .l_middle{
     max-width: 300px;
-    height: 80vh;
+    height: 76.3vh;
+    overflow-y: overlay;
+    
 }
+::-webkit-scrollbar {
+
+    width: 7px;
+
+}
+
+::-webkit-scrollbar-button {
+
+    background: transparent;
+
+    border-radius: 4px;
+
+}
+
+::-webkit-scrollbar-track-piece {
+
+    background: transparent;
+
+}
+
+::-webkit-scrollbar-thumb {
+
+    border-radius: 4px;
+
+    background-color: rgba(0, 0, 0, 0.4);
+
+    border: 1px solid slategrey;
+
+}
+
+::-webkit-scrollbar-track {
+
+    box-shadow: transparent;
+
+}
+
 
 .side .l_middle .title{
 	padding: 10px 30px;
@@ -68,16 +132,21 @@ body {
 .side .l_middle .icon{
     padding: 0 5px;
 }
+
+.side .l_middle a{
+    color: black;
+}
+
 .side .title:hover {
 	box-shadow: 0 0 15px 0 rgba(100, 100, 100, 0.1);
-	border-right: 5px solid #2894FF;
+	border-left: 5px solid #2894FF;
 }
 
 .side .l_report{
-    padding: 5% 30%;
+    padding: 4% 30%;
     width: 100%;
     height: 5vh;
-    font-size: 26px;
+    font-size: 24px;
     font-weight: bold;
     display: flex;
 }
@@ -243,8 +312,21 @@ body {
 }
 
 .modal{
-    margin-top: 14%;
+    padding-top: 9%;
 }
+
+.modal-body .create_title{
+    padding-top: -1px;
+}
+
+.modal-body .create_title p{
+    font-size: 18px;
+}
+
+.modal-body .text p{
+    font-size: 20px;
+}
+
 .modal-body form .account{
     margin: 10px 5%;
     width: 90%;
@@ -255,8 +337,49 @@ body {
     width: 90%;
     border-radius: 2em;
 }
+
 .modal-body form{
     justify-content: center;
+}
+
+.modal-body .form-floating:focus-within {
+    z-index: 2;
+  }
+
+.modal-body form p{
+    font-size: 18px;
+    margin-left: 20px;
+}
+.modal-body form .ch_password{
+    margin-left: 20px;
+    margin-bottom: 3%;
+    width: 90%;
+    border-radius: 1em;
+}
+
+#checkEye1 {
+    position: absolute;
+    top: 22%;
+    right: 53px;
+    transform: translateY(-50%);
+}
+
+#checkEye2 {
+    position: absolute;
+    top: 49%;
+    right: 53px;
+    transform: translateY(-50%);
+}
+
+#checkEye3 {
+    position: absolute;
+    top: 76%;
+    right: 53px;
+    transform: translateY(-50%);
+}
+
+.modal-body form .change_btn{
+    margin-top: 5px;
 }
 
 .modal-body form .report{
