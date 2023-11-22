@@ -213,7 +213,7 @@ def madetect():
             model = 'gpt-3.5-turbo-0613',
             messages = [
                 {"role": "system", "content": "你是一個專業的廣告詞家，具有台灣的醫療法相關知識。"},
-                {"role": "user", "content": resultLaw + "\n請參考上述語句幫我以繁體中文建議我如何修改以達到不違法的目的，請只要告訴我修改後的結果就好: " + input_ad},
+                {"role": "user", "content": resultLaw + "\n請參考上述語句幫我以繁體中文建議我如何修改此廣告詞以達到不違法的目的，請只要告訴我修改後的結果就好: " + input_ad},
             ]
         )
         # 存取GPT回應<修改後廣告詞>
