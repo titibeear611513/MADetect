@@ -3,7 +3,6 @@
 """
 from flask import Blueprint, request, jsonify, make_response
 from models.user_model import UserModel
-from models.admin_model import AdminModel
 from utils.jwt_utils import JWTManager
 
 auth_api_bp = Blueprint('auth_api', __name__, url_prefix='/api/auth')
@@ -58,70 +57,6 @@ def login():
             'id': str(user['_id']),
             'name': user['user_name'],
             'email': user['user_email']
-        }
-    }))
-    
-    # 設置 Cookie
-    response.set_cookie(
-        'access_token',
-        token,
-        max_age=7*24*60*60,  # 7天
-        httponly=True,
-        samesite='Lax'
-    )
-    
-    return response
-
-
-@auth_api_bp.route('/admin/login', methods=['POST'])
-def admin_login():
-    """
-    管理員登入 API
-    POST /api/auth/admin/login
-    Body: { "email": "admin@example.com", "password": "password123" }
-    """
-    data = request.get_json()
-    
-    if not data:
-        return jsonify({
-            'success': False,
-            'message': '請提供 JSON 資料'
-        }), 400
-    
-    email = data.get('email')
-    password = data.get('password')
-    
-    if not email or not password:
-        return jsonify({
-            'success': False,
-            'message': '請提供 email 和 password'
-        }), 400
-    
-    # 查找管理員
-    admin = AdminModel.find_by_email_and_password(email, password)
-    
-    if admin is None:
-        return jsonify({
-            'success': False,
-            'message': '帳號或密碼錯誤'
-        }), 401
-    
-    # 生成 JWT token
-    token = JWTManager.generate_token(
-        user_id=admin['_id'],
-        user_name=admin['admin_name'],
-        user_type='admin'
-    )
-    
-    # 建立回應
-    response = make_response(jsonify({
-        'success': True,
-        'message': '登入成功',
-        'token': token,
-        'user': {
-            'id': str(admin['_id']),
-            'name': admin['admin_name'],
-            'email': admin['admin_email']
         }
     }))
     

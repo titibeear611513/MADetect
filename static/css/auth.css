@@ -34,11 +34,6 @@ body.user-auth::before {
     background-image: url("../pic/userbackground.jpg");
 }
 
-/* 管理員頁面背景 */
-body.admin-auth::before {
-    background-image: url("../pic/adminbackground.jpg");
-}
-
 /* 標題區域 */
 .topic {
     position: absolute;

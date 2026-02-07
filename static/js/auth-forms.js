@@ -22,7 +22,7 @@ function initAuthForm(formType, isAdmin = false) {
     // 根據表單類型設定處理函數
     switch(formType) {
         case 'login':
-            initLoginForm(form, isAdmin);
+            initLoginForm(form, false);
             break;
         case 'signup':
             initSignupForm(form);
@@ -49,12 +49,10 @@ function initLoginForm(form, isAdmin) {
         
         if (errorElement) errorElement.textContent = '';
         
-        const result = isAdmin 
-            ? await adminLogin(email, password)
-            : await login(email, password);
+        const result = await login(email, password);
         
         if (result.success) {
-            window.location.href = isAdmin ? "/adminhome" : "/home";
+            window.location.href = "/home";
         } else {
             if (errorElement) {
                 errorElement.textContent = result.message || 'Invalid email or password';

@@ -111,49 +111,6 @@ async function login(email, password) {
 }
 
 /**
- * 管理員登入
- */
-async function adminLogin(email, password) {
-    try {
-        const response = await fetch('/api/auth/admin/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email: email,
-                password: password
-            }),
-            credentials: 'include'
-        });
-        
-        const data = await response.json();
-        
-        if (data.success) {
-            // 儲存 token
-            if (data.token) {
-                saveToken(data.token);
-            }
-            return {
-                success: true,
-                user: data.user
-            };
-        } else {
-            return {
-                success: false,
-                message: data.message || '登入失敗'
-            };
-        }
-    } catch (error) {
-        console.error('登入錯誤:', error);
-        return {
-            success: false,
-            message: '登入時發生錯誤'
-        };
-    }
-}
-
-/**
  * 用戶註冊
  */
 async function register(name, email, password) {

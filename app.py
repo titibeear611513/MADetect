@@ -6,7 +6,6 @@ from config import Config
 from routes.main import main_bp
 from routes.auth import auth_bp
 from routes.user import user_bp
-from routes.admin import admin_bp
 from routes.api.auth_api import auth_api_bp
 from routes.api.project_api import project_api_bp
 
@@ -32,7 +31,6 @@ def create_app():
     app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp)
     app.register_blueprint(user_bp)
-    app.register_blueprint(admin_bp)
     app.register_blueprint(auth_api_bp)  # RESTful API
     app.register_blueprint(project_api_bp)  # 專案管理 API
     

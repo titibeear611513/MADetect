@@ -61,9 +61,7 @@
                 <p>Password</p>
                 <input type="password" required placeholder="Enter Your Password" name="user_password" id="password">
                 
-                {% if form_type != 'admin_login' %}
                 <a href="/forgetpsw"><p class="forget-link">forget password?</p></a>
-                {% endif %}
                 
                 <p id="login-error" class="error-message"></p>
             {% endif %}
@@ -91,13 +89,12 @@
 <script src="{{ url_for('static', filename='js/auth-forms.js') }}"></script>
 <script>
     // 設定 body class
-    document.body.className = '{% if form_type == "admin_login" %}admin-auth{% else %}user-auth{% endif %}';
+    document.body.className = 'user-auth';
     
     // 設定表單類型
     const formType = '{{ form_type }}';
-    const isAdmin = {{ 'true' if form_type == 'admin_login' else 'false' }};
     
     // 初始化表單處理
-    initAuthForm(formType, isAdmin);
+    initAuthForm(formType, false);
 </script>
 {% endblock %}
