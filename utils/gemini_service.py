@@ -23,35 +23,50 @@ class GeminiService:
         self.model = self._get_available_model()
     
     def _get_available_model(self):
-        """獲取可用的 Gemini 模型"""
+        """獲取可用的 Gemini 模型（優先使用最快的模型以提升速度）"""
         model = None
         
-        # 嘗試動態獲取可用的模型
+        # 動態查找可用的模型，優先尋找最快的模型
         try:
             available_models = list(genai.list_models())
+            print(f"找到 {len(available_models)} 個可用模型")
+            
+            # 優先尋找包含 "flash" 的模型（通常最快）
+            for m in available_models:
+                model_name = m.name.replace('models/', '')
+                if 'flash' in model_name.lower() and 'generateContent' in m.supported_generation_methods:
+                    try:
+                        model = genai.GenerativeModel(model_name)
+                        print(f"成功使用模型: {model_name} (優先選擇，速度最快)")
+                        return model
+                    except Exception as e:
+                        print(f"嘗試 {model_name} 失敗: {str(e)[:100]}")
+                        continue
+            
+            # 如果沒有 flash，找任何支援 generateContent 的模型
             for m in available_models:
                 if 'generateContent' in m.supported_generation_methods:
                     model_name = m.name.replace('models/', '')
                     try:
                         model = genai.GenerativeModel(model_name)
                         print(f"成功使用模型: {model_name}")
-                        break
-                    except:
+                        return model
+                    except Exception as e:
+                        print(f"嘗試 {model_name} 失敗: {str(e)[:100]}")
                         continue
         except Exception as e:
             print(f"無法列出模型: {e}")
         
-        # 如果無法動態獲取，嘗試常見的模型名稱
-        if model is None:
-            model_names = ['gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-pro']
-            for name in model_names:
-                try:
-                    model = genai.GenerativeModel(name)
-                    print(f"成功使用模型: {name}")
-                    break
-                except Exception as e:
-                    print(f"嘗試 {name} 失敗: {str(e)[:100]}")
-                    continue
+        # 如果動態查找失敗，嘗試常見模型名稱（按速度優先順序）
+        model_names = ['gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-pro', 'gemini-1.0-pro']
+        for name in model_names:
+            try:
+                model = genai.GenerativeModel(name)
+                print(f"成功使用模型: {name}")
+                break
+            except Exception as e:
+                print(f"嘗試 {name} 失敗: {str(e)[:100]}")
+                continue
         
         if model is None:
             raise Exception(
@@ -92,13 +107,16 @@ class GeminiService:
 
 請以條列式的方式回答，格式要求：
 1. 違法/不違法（根據實際內容判斷，簡短結論，一行，不超過 10 字）
-2. 違反的法條（如有違法，寫法條名稱和簡短說明，不超過 20 字；如不違法，寫「無」）
-3. 違法原因（如有違法，簡短說明違法原因，每點一行，不超過 25 字；如不違法，寫「無違法行為」）
-4. 具體違規內容（如有違法，說明具體違規行為，每點一行，不超過 25 字；如不違法，寫「符合法規」）
+2. 違反的法條（如有違法，必須明確寫出法條名稱，例如「醫療法第61條第1項」、「醫療法第86條第7款」等，並簡短說明，不超過 20 字；如不違法，寫「無」）
+3. 違法原因（如有違法，根據法條內容說明違法原因，必須對應到具體法條規定，每點一行，不超過 25 字；如不違法，寫「無違法行為」）
+4. 具體違規內容（如有違法，詳細說明具體違規行為和違規情況，清楚解釋為何違法，不超過 50 字；如不違法，寫「符合法規」）
 
 重要要求：
+- 第2點（違反的法條）必須明確寫出具體法條名稱，例如「醫療法第61條第1項」、「醫療法第86條第7款」等，並參考法律文件中的法條內容
+- 第3點（違法原因）必須對應到具體法條規定，說明為何違反該法條
+- 第4點（具體違規內容）需要詳細說明，清楚解釋違規情況和原因
 - 每點需要有一些描述性說明，但保持簡潔
-- 總長度不超過 80 字
+- 總長度不超過 110 字（因為第4點需要更詳細）
 - 最多 4 行
 - 必須根據實際廣告內容判斷，不要假設
 - 如果廣告詞沒有違法元素，必須明確寫「不違法」
@@ -107,8 +125,8 @@ class GeminiService:
 - 格式範例（違法情況）：
   1. 違法
   2. 醫療法第61條第1項：禁止不正當招攬病人
-  3. 廣告宣稱贈送禮品或免費服務
-  4. 使用「免費送」、「免費體驗」等字眼招攬病人
+  3. 違反公告禁止之不正當方法招攬病人
+  4. 使用「免費送」、「免費體驗」等字眼招攬病人，此類優惠方式屬於不正當招攬行為，違反醫療法第61條第1項公告禁止之不正當方法
 - 格式範例（不違法情況）：
   1. 不違法
   2. 無
@@ -280,7 +298,7 @@ class GeminiService:
         result = '\n'.join(formatted_lines)
         
         # 如果結果太長，精簡到前 4 行
-        if len(result) > 80:
+        if len(result) > 110:
             lines = result.split('\n')
             important_lines = []
             for line in lines[:4]:  # 最多保留 4 行

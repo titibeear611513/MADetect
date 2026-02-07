@@ -31,7 +31,7 @@ class Config:
         )
     
     # 法律文件路徑
-    LAW_DOC_PATH = './static/doc/醫療法補充二.txt'
+    LAW_DOC_PATH = './static/doc/醫療廣告法規完整指南.txt'
     
     # Flask 運行配置
     HOST = '0.0.0.0'

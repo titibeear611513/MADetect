@@ -15,6 +15,62 @@ if (typeof getToken === 'undefined') {
 let isProcessing = false;
 
 /**
+ * 處理貼上事件，清除格式只保留純文字
+ */
+function handlePaste(e) {
+    e.preventDefault();
+    
+    // 獲取剪貼板中的純文字內容
+    const text = (e.clipboardData || window.clipboardData).getData('text/plain');
+    
+    // 清除當前選取內容並插入純文字
+    const selection = window.getSelection();
+    if (selection.rangeCount > 0) {
+        const range = selection.getRangeAt(0);
+        range.deleteContents();
+        
+        // 創建文字節點並插入
+        const textNode = document.createTextNode(text);
+        range.insertNode(textNode);
+        
+        // 移動游標到插入文字的末尾
+        range.setStartAfter(textNode);
+        range.collapse(true);
+        selection.removeAllRanges();
+        selection.addRange(range);
+    } else {
+        // 如果沒有選取，直接插入到當前位置
+        const textNode = document.createTextNode(text);
+        e.target.appendChild(textNode);
+    }
+}
+
+/**
+ * 為輸入框添加貼上事件處理器
+ */
+function setupPasteHandler(element) {
+    if (element && element.contentEditable === 'true') {
+        element.addEventListener('paste', handlePaste);
+    }
+}
+
+/**
+ * 為所有可編輯的輸入框設置貼上處理器
+ */
+function setupAllPasteHandlers() {
+    // 為現有的輸入框設置
+    const inputAD = document.getElementById('inputAD');
+    if (inputAD) {
+        setupPasteHandler(inputAD);
+    }
+    
+    // 為所有可編輯的內容設置
+    document.querySelectorAll('.editable-content[contenteditable="true"]').forEach(element => {
+        setupPasteHandler(element);
+    });
+}
+
+/**
  * 主要檢測函數（第一次使用）
  */
 function madetect() {
@@ -420,6 +476,12 @@ function addNewElementsD(container, result_law, result_advice) {
     const newEditableContentLgreen = newDivLgreen.querySelector('.editable-content');
     newEditableContentPink.setAttribute('contenteditable', 'false');
     newEditableContentLgreen.setAttribute('contenteditable', 'false');
+    
+    // 為新的輸入框設置貼上處理器
+    const newInputAD = newDivDgreen.querySelector('#inputAD');
+    if (newInputAD && typeof setupPasteHandler !== 'undefined') {
+        setupPasteHandler(newInputAD);
+    }
 }
 
 /**
@@ -457,6 +519,11 @@ function createNewDiv(titleText, bgColorClass, editable, backendresult) {
         newEditableContent.setAttribute('id', 'inputAD');
         newEditableContent.setAttribute('name', 'input_ad');
         newEditableContent.innerHTML = '';
+        
+        // 為新的輸入框設置貼上處理器
+        if (typeof setupPasteHandler !== 'undefined') {
+            setupPasteHandler(newEditableContent);
+        }
     }
 
     newInputBlock.appendChild(newEditableContent);
@@ -498,3 +565,10 @@ function setBorderColors(pinkDiv, greenDiv, darkGreenDiv = null) {
         }
     }
 }
+
+// 頁面載入完成後設置所有輸入框的貼上處理器
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof setupAllPasteHandlers !== 'undefined') {
+        setupAllPasteHandlers();
+    }
+});

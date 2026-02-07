@@ -283,6 +283,12 @@ function showInitialInput() {
             </div>
         </div>
     `;
+    
+    // 為新創建的輸入框設置貼上處理器
+    const newInputAD = document.getElementById('inputAD');
+    if (newInputAD && typeof setupPasteHandler !== 'undefined') {
+        setupPasteHandler(newInputAD);
+    }
 }
 
 /**
@@ -311,6 +317,11 @@ function createProjectDiv(titleText, bgColorClass, editable, content) {
         newEditableContent.setAttribute('id', 'inputAD');
         newEditableContent.setAttribute('name', 'input_ad');
         newEditableContent.innerHTML = '';
+        
+        // 為新的輸入框設置貼上處理器
+        if (typeof setupPasteHandler !== 'undefined') {
+            setupPasteHandler(newEditableContent);
+        }
     }
 
     newInputBlock.appendChild(newEditableContent);
