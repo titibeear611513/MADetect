@@ -20,38 +20,10 @@
         </div>
         
         <div class="l_middle">
-            {% if projects %}
-                {% for project in projects %}
-                <div class="title">
-                    <div class="text">{{ project.name }}</div>
-                    <div class="icon">
-                        <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#edit">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </a>
-                    </div>
-                    <div class="icon">
-                        <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#delete">
-                            <i class="fa-solid fa-trash-can"></i>
-                        </a>
-                    </div>
-                </div>
-                {% endfor %}
-            {% else %}
-                <!-- 預設專案列表（如果沒有傳入 projects） -->
-                <div class="title">
-                    <div class="text">減肥</div>
-                    <div class="icon">
-                        <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#edit">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </a>
-                    </div>
-                    <div class="icon">
-                        <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#delete">
-                            <i class="fa-solid fa-trash-can"></i>
-                        </a>
-                    </div>
-                </div>
-            {% endif %}
+            <!-- 專案列表將由 JavaScript 動態載入 -->
+            <div class="title">
+                <div class="text">載入中...</div>
+            </div>
         </div>
         
         <!-- 問題回報 -->

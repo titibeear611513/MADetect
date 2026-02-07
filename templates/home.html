@@ -9,25 +9,26 @@
     
     <!-- 主功能區 -->
     <div class="r_side">
-        <div class="r_container">
-            <div class="title">請輸入廣告詞</div>
-            <div class="input-block">
-                <div id="inputAD" class="editable-content" contenteditable="true" name="input_ad"></div>
-            </div>
-            <div class="button-container">
+                <div class="r_container">
+                    <div class="title">請輸入廣告詞</div>
+                    <div class="input-block">
+                      <div id="inputAD" class="editable-content" contenteditable="true" name="input_ad"></div>
+                    </div>
+                    <div class="button-container">
                 <button title='送出' id="inputADbutton" class="custom-button" onclick="madetect()">
                     <img src="/static/pic/send4.png" width="24px" height="24px" alt="送出">
                 </button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
 <!-- 模態框 -->
 {% include 'components/modals.html' %}
 {% endblock %}
 
 {% block scripts %}
+<script src="{{ url_for('static', filename='js/project.js') }}"></script>
 <script src="{{ url_for('static', filename='js/home.js') }}"></script>
 <script src="{{ url_for('static', filename='js/modal-handlers.js') }}"></script>
 {% endblock %}

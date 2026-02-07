@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}MADetect{% endblock %}</title>
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='pic/system_icon.png') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='pic/system_icon.png') }}">
+    
     <!-- CSS -->
     {% block stylesheets %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
