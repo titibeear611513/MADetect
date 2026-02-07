@@ -244,7 +244,7 @@ body {
     width: 100%;
     padding-left: 5px;
     border: none;
-    font-size: 30px;
+    font-size: 24px;
     outline: none;
     word-wrap: break-word;
     min-height: 120px;
@@ -277,6 +277,40 @@ body {
     margin-top: 20px;
     width: 96%;
     margin-left: 30px;
+}
+
+/* 條列式文字樣式 */
+.pink-bg .editable-content,
+.Lgreen-bg .editable-content {
+    white-space: pre-line;
+    line-height: 1.8;
+    font-size: 24px;  /* 與輸入框相同的字體大小 */
+    /* 使用與輸入框相同的字體 */
+    font-family: 'Chewy', cursive;
+}
+
+/* 條列式項目樣式 */
+.pink-bg .editable-content .list-item-numbered,
+.pink-bg .editable-content .list-item-bullet,
+.pink-bg .editable-content .list-item-indented,
+.pink-bg .editable-content .list-item {
+    margin: 8px 0;
+    padding-left: 8px;
+}
+
+.pink-bg .editable-content .list-item-numbered {
+    font-weight: bold;
+    color: #d32f2f;
+}
+
+.pink-bg .editable-content .list-item-bullet {
+    padding-left: 20px;
+}
+
+.pink-bg .editable-content .list-item-indented {
+    padding-left: 30px;
+    color: #666;
+    font-size: 14px;
 }
 
 .pink-bg .title {

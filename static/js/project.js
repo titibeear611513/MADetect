@@ -292,8 +292,8 @@ function renderProjectRecords(records) {
         inputDiv.querySelector('.editable-content').textContent = record.input_ad;
         inputDiv.querySelector('.editable-content').setAttribute('contenteditable', 'false');
         
-        // 違反法條
-        const lawDiv = createProjectDiv('以下是違反法條：', 'pink-bg', false, record.result_law);
+        // 專業醫療建議
+        const lawDiv = createProjectDiv('專業醫療建議：', 'pink-bg', false, record.result_law);
         
         // 修改建議
         const adviceDiv = createProjectDiv('以下是修改後的廣告詞：', 'Lgreen-bg', false, record.result_advice);

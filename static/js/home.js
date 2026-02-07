@@ -138,13 +138,20 @@ function sendDetectionRequest(inputAd) {
                 }
             },
             error: function(error) {
+                const errorData = error.responseJSON || {};
+                const errorMessage = errorData.message || '請求失敗';
+                
                 // 如果是 401，可能需要重新登入
                 if (error.status === 401) {
                     alert('登入已過期，請重新登入');
                     window.location.href = '/login';
+                } else if (error.status === 429) {
+                    // API 配額限制
+                    alert(errorMessage + '\n\n免費層每日限制為 20 次請求，請稍後再試。');
                 } else if (error.status === 400) {
-                    const errorData = error.responseJSON || {};
-                    alert(errorData.message || '請求失敗，請檢查是否已選擇專案');
+                    alert(errorMessage || '請求失敗，請檢查是否已選擇專案');
+                } else if (error.status === 500) {
+                    alert(errorMessage || '伺服器錯誤，請稍後再試');
                 } else if (error.status === 200) {
                     // 如果狀態碼是 200 但進入 error，可能是 JSON 解析問題
                     try {
@@ -158,6 +165,8 @@ function sendDetectionRequest(inputAd) {
                     } catch (e) {
                         console.error('解析回應錯誤:', e);
                     }
+                } else {
+                    alert(errorMessage || '請求失敗，請稍後再試');
                 }
                 reject(error);
             }
@@ -211,7 +220,7 @@ function showLoadingResults() {
     loadingDiv.id = 'loading-results';
     
     const newDivPink = createNewDiv(
-        '以下是違反法條：', 
+        '專業醫療建議：', 
         'pink-bg', 
         false, 
         '<div style="text-align: center; padding: 20px; color: #666;"><i class="fas fa-spinner fa-spin"></i> 正在分析中，請稍候...</div>'
@@ -246,7 +255,7 @@ function showLoadingResultsForContainer(container) {
     loadingDiv.id = 'loading-results';
     
     const newDivPink = createNewDiv(
-        '以下是違反法條：', 
+        '專業醫療建議：', 
         'pink-bg', 
         false, 
         '<div style="text-align: center; padding: 20px; color: #666;"><i class="fas fa-spinner fa-spin"></i> 正在分析中，請稍候...</div>'
@@ -316,7 +325,7 @@ function addNewElements(result_law, result_advice) {
     // 移除 loading 結果框
     removeLoadingResults();
 
-    const newDivPink = createNewDiv('以下是違反法條：', 'pink-bg', false, result_law);
+    const newDivPink = createNewDiv('專業醫療建議：', 'pink-bg', false, result_law);
     const newDivLgreen = createNewDiv('以下是修改後的廣告詞：', 'Lgreen-bg', false, result_advice);
     const newDivBlackLine = createNewBlackLine();
     const newDivDgreen = createNewDiv('請輸入廣告詞', 'Dgreen-bg', true, '');
@@ -358,7 +367,7 @@ function addNewElementsD(container, result_law, result_advice) {
     // 移除 loading 結果框
     removeLoadingResults();
 
-    const newDivPink = createNewDiv('以下是違反法條：', 'pink-bg', false, result_law);
+    const newDivPink = createNewDiv('專業醫療建議：', 'pink-bg', false, result_law);
     const newDivLgreen = createNewDiv('以下是修改後的廣告詞：', 'Lgreen-bg', false, result_advice);
     const newDivBlackLine = createNewBlackLine();
     const newDivDgreen = createNewDiv('請輸入廣告詞', 'Dgreen-bg', true, '');

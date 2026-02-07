@@ -39,3 +39,40 @@ def clean_markdown(text):
     text = re.sub(r'\n{3,}', '\n\n', text)
     
     return text.strip()
+
+
+def format_as_list_html(text):
+    """
+    將文字轉換為 HTML 條列式格式（用於前端顯示）
+    
+    Args:
+        text: 原始文字
+        
+    Returns:
+        HTML 格式的條列式文字
+    """
+    if not text:
+        return text
+    
+    lines = text.strip().split('\n')
+    html_lines = []
+    
+    for line in lines:
+        line = line.strip()
+        if not line:
+            continue
+        
+        # 如果是編號開頭（1. 2. 等）
+        if re.match(r'^[\d一二三四五六七八九十]+[\.、)]', line):
+            html_lines.append(f'<div class="list-item-numbered">{line}</div>')
+        # 如果是項目符號開頭（• - 等）
+        elif re.match(r'^[•·\-*]\s*', line):
+            html_lines.append(f'<div class="list-item-bullet">{line}</div>')
+        # 如果是縮排的項目（  - 等）
+        elif re.match(r'^\s+[-•·*]', line):
+            html_lines.append(f'<div class="list-item-indented">{line.strip()}</div>')
+        # 其他行
+        else:
+            html_lines.append(f'<div class="list-item">{line}</div>')
+    
+    return ''.join(html_lines)

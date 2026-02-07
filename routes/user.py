@@ -5,7 +5,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, jsonif
 from models.user_model import UserModel
 from models.report_model import ReportModel
 from utils.gemini_service import gemini_service
-from utils.text_utils import clean_markdown
+from utils.text_utils import clean_markdown, format_as_list_html, format_as_list_html
 from utils.file_utils import load_law_document
 from utils.jwt_utils import jwt_required_page, jwt_required, JWTManager
 
@@ -92,31 +92,51 @@ def madetect():
     
     print(f"收到廣告內容: {input_ad}")
     
-    # 載入法律文件
-    law_text = load_law_document()
-    
-    # 分析廣告是否違法
-    result_law = gemini_service.analyze_ad_law(input_ad, law_text)
-    print(f'法律分析結果: {result_law}')
-    
-    # 建議修改方案
-    result_advice = gemini_service.suggest_ad_revision(input_ad, result_law)
-    print(f'修改建議: {result_advice}')
-    
-    # 清理 Markdown 格式
-    result_law = clean_markdown(result_law)
-    result_advice = clean_markdown(result_advice)
-    
-    # 儲存記錄到資料庫
-    ProjectRecordModel.create(project_id, input_ad, result_law, result_advice)
-    
-    response = {
-        'success': True,
-        'result_advice': result_advice,
-        'result_law': result_law
-    }
-    
-    return jsonify(response)
+    try:
+        # 載入法律文件
+        law_text = load_law_document()
+        
+        # 分析廣告是否違法
+        result_law = gemini_service.analyze_ad_law(input_ad, law_text)
+        print(f'法律分析結果: {result_law}')
+        
+        # 建議修改方案
+        result_advice = gemini_service.suggest_ad_revision(input_ad, result_law)
+        print(f'修改建議: {result_advice}')
+        
+        # 清理 Markdown 格式並格式化為條列式
+        result_law = clean_markdown(result_law)
+        result_law = format_as_list_html(result_law)  # 轉換為 HTML 條列式
+        result_advice = clean_markdown(result_advice)
+        
+        # 儲存記錄到資料庫
+        ProjectRecordModel.create(project_id, input_ad, result_law, result_advice)
+        
+        response = {
+            'success': True,
+            'result_advice': result_advice,
+            'result_law': result_law
+        }
+        
+        return jsonify(response)
+        
+    except Exception as e:
+        error_message = str(e)
+        print(f'廣告檢測錯誤: {error_message}')
+        
+        # 檢查是否為配額限制錯誤
+        if '配額' in error_message or 'quota' in error_message.lower() or 'ResourceExhausted' in error_message:
+            return jsonify({
+                'success': False,
+                'message': 'API 配額已用完。免費層每日限制為 20 次請求。請稍後再試，或升級您的 API 方案。',
+                'error_type': 'quota_exceeded'
+            }), 429
+        else:
+            return jsonify({
+                'success': False,
+                'message': f'廣告檢測失敗：{error_message}',
+                'error_type': 'api_error'
+            }), 500
 
 
 @user_bp.route('/report', methods=['POST'])
