@@ -105,6 +105,16 @@ function madetects(container) {
  */
 function sendDetectionRequest(inputAd) {
     return new Promise((resolve, reject) => {
+        // 獲取當前專案 ID
+        const projectId = typeof currentProjectId !== 'undefined' ? currentProjectId : 
+                         new URLSearchParams(window.location.search).get('project_id');
+        
+        if (!projectId) {
+            alert('請先選擇或建立一個專案');
+            reject(new Error('No project selected'));
+            return;
+        }
+        
         // 使用 authenticatedFetch 或直接使用 fetch with token
         const token = getToken();
         
@@ -115,15 +125,39 @@ function sendDetectionRequest(inputAd) {
                 'Content-Type': 'application/json',
                 'Authorization': token ? `Bearer ${token}` : ''
             },
-            data: JSON.stringify({ input_ad: inputAd }),
+            data: JSON.stringify({ 
+                input_ad: inputAd,
+                project_id: projectId
+            }),
             success: function(response) {
-                resolve(response);
+                // 檢查 response 是否包含 success 欄位
+                if (response && response.success === false) {
+                    reject(new Error(response.message || '請求失敗'));
+                } else {
+                    resolve(response);
+                }
             },
             error: function(error) {
                 // 如果是 401，可能需要重新登入
                 if (error.status === 401) {
                     alert('登入已過期，請重新登入');
                     window.location.href = '/login';
+                } else if (error.status === 400) {
+                    const errorData = error.responseJSON || {};
+                    alert(errorData.message || '請求失敗，請檢查是否已選擇專案');
+                } else if (error.status === 200) {
+                    // 如果狀態碼是 200 但進入 error，可能是 JSON 解析問題
+                    try {
+                        const response = typeof error.responseJSON !== 'undefined' ? error.responseJSON : JSON.parse(error.responseText);
+                        if (response && response.success === false) {
+                            alert(response.message || '請求失敗');
+                        } else {
+                            resolve(response);
+                            return;
+                        }
+                    } catch (e) {
+                        console.error('解析回應錯誤:', e);
+                    }
                 }
                 reject(error);
             }

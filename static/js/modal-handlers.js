@@ -93,16 +93,7 @@ function displayUserEmail() {
     }
 }
 
-/**
- * 新增專案（待實現）
- */
-function addProject() {
-    const projectName = document.getElementById('create-project-name').value;
-    if (projectName.trim()) {
-        // TODO: 實現新增專案功能
-        console.log('新增專案:', projectName);
-    }
-}
+// addProject 函數已移至 project.js
 
 // 頁面載入時初始化
 document.addEventListener("DOMContentLoaded", function() {

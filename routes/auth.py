@@ -12,12 +12,23 @@ auth_bp = Blueprint('auth', __name__)
 def login_page():
     """登入頁面"""
     # 檢查是否已登入（透過 JWT）
+    # 只在 token 確實有效時才重定向，避免循環
     token = JWTManager.get_token_from_request()
     if token:
         payload = JWTManager.verify_token(token)
-        if payload:
+        # 確保 payload 有效且包含必要的資訊
+        if payload and payload.get('user_id') and payload.get('user_type') == 'user':
             # 已登入，重定向到首頁
             return redirect(url_for('user.home'))
+        else:
+            # Token 無效，清除它
+            from flask import make_response
+            response = make_response(render_template('auth.html', 
+                                                    form_type='login',
+                                                    page_title='Login',
+                                                    submit_text='Log in'))
+            response.set_cookie('access_token', '', max_age=0)
+            return response
     
     return render_template('auth.html', 
                          form_type='login',
@@ -29,12 +40,23 @@ def login_page():
 def signup_page():
     """註冊頁面"""
     # 檢查是否已登入（透過 JWT）
+    # 只在 token 確實有效時才重定向，避免循環
     token = JWTManager.get_token_from_request()
     if token:
         payload = JWTManager.verify_token(token)
-        if payload:
+        # 確保 payload 有效且包含必要的資訊
+        if payload and payload.get('user_id') and payload.get('user_type') == 'user':
             # 已登入，重定向到首頁
             return redirect(url_for('user.home'))
+        else:
+            # Token 無效，清除它
+            from flask import make_response
+            response = make_response(render_template('auth.html',
+                                                    form_type='signup',
+                                                    page_title='Sign Up',
+                                                    submit_text='Sign up'))
+            response.set_cookie('access_token', '', max_age=0)
+            return response
     
     return render_template('auth.html',
                          form_type='signup',

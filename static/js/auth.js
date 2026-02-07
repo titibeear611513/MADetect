@@ -54,8 +54,13 @@ async function checkAuth() {
             credentials: 'include'
         });
         
+        if (!response.ok) {
+            return false;
+        }
+        
         const data = await response.json();
-        return data.valid === true;
+        // 檢查 success 或 valid 欄位
+        return data.success === true || data.valid === true;
     } catch (error) {
         console.error('驗證 token 失敗:', error);
         return false;
@@ -83,7 +88,9 @@ async function login(email, password) {
         
         if (data.success) {
             // 儲存 token
-            saveToken(data.token);
+            if (data.token) {
+                saveToken(data.token);
+            }
             return {
                 success: true,
                 user: data.user
@@ -124,7 +131,9 @@ async function adminLogin(email, password) {
         
         if (data.success) {
             // 儲存 token
-            saveToken(data.token);
+            if (data.token) {
+                saveToken(data.token);
+            }
             return {
                 success: true,
                 user: data.user

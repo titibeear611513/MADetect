@@ -6,16 +6,15 @@
  * 初始化認證表單
  */
 function initAuthForm(formType, isAdmin = false) {
-    // 檢查是否已登入
-    checkAuth().then(function(isAuthenticated) {
-        if (isAuthenticated) {
-            if (isAdmin) {
-                window.location.href = "/adminhome";
-            } else {
-                window.location.href = "/home";
-            }
-        }
-    });
+    // 防止重複初始化
+    if (window.authFormInitialized) {
+        return;
+    }
+    window.authFormInitialized = true;
+    
+    // 移除自動檢查認證和重定向的邏輯
+    // 因為後端路由已經處理了重定向邏輯
+    // 前端不需要再次檢查，避免造成循環重定向
     
     const form = document.getElementById('auth-form');
     if (!form) return;

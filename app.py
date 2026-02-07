@@ -8,6 +8,7 @@ from routes.auth import auth_bp
 from routes.user import user_bp
 from routes.admin import admin_bp
 from routes.api.auth_api import auth_api_bp
+from routes.api.project_api import project_api_bp
 
 # 嘗試導入 CORS（如果已安裝）
 try:
@@ -33,6 +34,7 @@ def create_app():
     app.register_blueprint(user_bp)
     app.register_blueprint(admin_bp)
     app.register_blueprint(auth_api_bp)  # RESTful API
+    app.register_blueprint(project_api_bp)  # 專案管理 API
     
     return app
 

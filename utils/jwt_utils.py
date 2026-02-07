@@ -138,14 +138,20 @@ def jwt_required_page(f):
         token = JWTManager.get_token_from_request()
         
         if not token:
-            from flask import redirect, url_for
-            return redirect(url_for('auth.login_page'))
+            from flask import redirect, url_for, make_response
+            # 清除可能存在的無效 cookie
+            response = make_response(redirect(url_for('auth.login_page')))
+            response.set_cookie('access_token', '', max_age=0)
+            return response
         
         payload = JWTManager.verify_token(token)
         
         if not payload:
-            from flask import redirect, url_for
-            return redirect(url_for('auth.login_page'))
+            from flask import redirect, url_for, make_response
+            # Token 無效，清除 cookie 並重定向
+            response = make_response(redirect(url_for('auth.login_page')))
+            response.set_cookie('access_token', '', max_age=0)
+            return response
         
         # 將用戶資訊添加到 request
         request.current_user = payload
