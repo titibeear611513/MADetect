@@ -313,6 +313,57 @@ body {
     font-size: 14px;
 }
 
+/* 預設頁面樣式 */
+.default-page {
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+.default-content {
+    padding: 30px;
+    font-family: 'Chewy', cursive;
+    font-size: 18px;
+    line-height: 1.8;
+    color: #333;
+}
+
+.default-content h2 {
+    font-size: 32px;
+    color: #89BABA;
+    margin-bottom: 20px;
+    margin-top: 0;
+}
+
+.default-content h3 {
+    font-size: 24px;
+    color: #89BABA;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.default-content p {
+    font-size: 20px;
+    margin-bottom: 25px;
+    color: #555;
+}
+
+.default-content ul {
+    list-style-type: disc;
+    padding-left: 30px;
+    margin-bottom: 20px;
+}
+
+.default-content li {
+    margin-bottom: 12px;
+    font-size: 18px;
+    color: #444;
+}
+
+.default-content li strong {
+    color: #89BABA;
+    font-weight: bold;
+}
+
 .pink-bg .title {
     background-color: #FF859A;
 }

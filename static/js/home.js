@@ -66,7 +66,14 @@ function madetects(container) {
         return;
     }
 
-    const inputAD = document.getElementById("inputAD").textContent.trim();
+    // 從傳入的 container 中獲取當前輸入框的內容
+    const editableContent = container.querySelector('.editable-content');
+    if (!editableContent) {
+        alert('找不到輸入框');
+        return;
+    }
+    
+    const inputAD = editableContent.textContent.trim();
     
     // 檢查輸入是否為空
     if (!inputAD) {
@@ -180,24 +187,32 @@ function sendDetectionRequest(inputAd) {
 function setProcessingState(processing, container = null) {
     isProcessing = processing;
     
-    const editableContent = document.getElementById("inputAD");
+    let editableContent;
     let submitButton;
     
     if (container) {
+        // 從 container 中獲取輸入框和按鈕
+        editableContent = container.querySelector('.editable-content');
         submitButton = container.querySelector('.custom-button');
     } else {
+        // 使用第一個輸入框（初始輸入框）
+        editableContent = document.getElementById("inputAD");
         submitButton = document.getElementById("inputADbutton");
     }
     
     if (processing) {
-        editableContent.setAttribute('contenteditable', 'false');
+        if (editableContent) {
+            editableContent.setAttribute('contenteditable', 'false');
+        }
         if (submitButton) {
             submitButton.disabled = true;
             submitButton.style.opacity = '0.5';
             submitButton.style.cursor = 'not-allowed';
         }
     } else {
-        editableContent.setAttribute('contenteditable', 'true');
+        if (editableContent) {
+            editableContent.setAttribute('contenteditable', 'true');
+        }
         if (submitButton) {
             submitButton.disabled = false;
             submitButton.style.opacity = '1';

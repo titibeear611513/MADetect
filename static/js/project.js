@@ -14,6 +14,56 @@ function getToken() {
 }
 
 /**
+ * 顯示預設頁面
+ */
+function showDefaultPage() {
+    const rSide = document.getElementById('r_side');
+    if (!rSide) return;
+    
+    // 清除當前專案 ID
+    currentProjectId = null;
+    
+    // 更新 URL
+    window.history.pushState({}, '', '/home');
+    
+    // 清除側邊欄的 active 狀態
+    document.querySelectorAll('.l_middle .title.active').forEach(el => {
+        el.classList.remove('active');
+    });
+    
+    // 顯示預設頁面
+    rSide.innerHTML = `
+        <div class="r_container default-page">
+            <div class="title">歡迎使用 MADetect</div>
+            <div class="input-block">
+                <div class="default-content">
+                    <h2>開始使用</h2>
+                    <p>MADetect 是一個醫療廣告法規檢測工具，幫助您確保醫療廣告符合台灣醫療法規。</p>
+                    
+                    <h3>操作建議：</h3>
+                    <ul>
+                        <li>點擊左側「新增專案」按鈕創建新專案</li>
+                        <li>選擇或創建專案後，即可開始檢測醫療廣告</li>
+                        <li>輸入您的醫療廣告詞，系統會自動分析是否符合法規</li>
+                        <li>系統會提供專業醫療建議和修改建議</li>
+                    </ul>
+                    
+                    <h3>功能說明：</h3>
+                    <ul>
+                        <li><strong>專業醫療建議：</strong>分析廣告是否違法，並提供相關法條說明</li>
+                        <li><strong>修改建議：</strong>提供符合法規的廣告詞修改方案</li>
+                        <li><strong>專案管理：</strong>可以創建多個專案，分別管理不同的廣告檢測記錄</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // 清除專案內容
+    clearProjectContent();
+}
+
+/**
  * 載入專案列表
  */
 async function loadProjects() {
@@ -46,6 +96,9 @@ async function loadProjects() {
                 window.history.pushState({}, '', `/home?project_id=${firstProjectId}`);
                 // 載入專案資料
                 await loadProjectData(firstProjectId);
+            } else if (data.projects.length === 0 && !currentProjectId) {
+                // 如果沒有專案，顯示預設頁面
+                showDefaultPage();
             }
         } else {
             console.error('載入專案失敗:', data.message);
