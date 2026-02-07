@@ -14,12 +14,11 @@ MADetect/
 │   ├── main.py           # 主頁路由
 │   ├── auth.py            # 用戶認證路由（頁面）
 │   ├── user.py            # 用戶功能路由
-│   ├── admin.py           # 管理員路由
 │   └── api/               # RESTful API 路由
 │       └── auth_api.py    # 認證 API（JWT）
 ├── models/                # 資料模型層
 │   ├── user_model.py      # 用戶資料操作
-│   ├── admin_model.py     # 管理員資料操作
+│   ├── project_model.py   # 專案資料操作
 │   └── report_model.py    # 問題回報資料操作
 ├── utils/                 # 工具函數模組
 │   ├── gemini_service.py  # Gemini API 服務
@@ -113,17 +112,22 @@ flask run --host=0.0.0.0 --port=5001
 啟動成功後，在瀏覽器開啟：
 - 首頁：http://localhost:5001
 - 會員登入：http://localhost:5001/login
-- 管理員登入：http://localhost:5001/adminlogin
 
 ## API 端點（RESTful）
 
 ### 認證 API
 - `POST /api/auth/login` - 用戶登入
-- `POST /api/auth/admin/login` - 管理員登入
 - `POST /api/auth/register` - 用戶註冊
 - `POST /api/auth/check-email` - 檢查 email 是否存在
 - `POST /api/auth/logout` - 登出
 - `GET /api/auth/verify` - 驗證 token
+
+### 專案管理 API
+- `GET /api/project/list` - 獲取用戶的所有專案
+- `POST /api/project/create` - 建立新專案
+- `GET /api/project/<project_id>` - 獲取專案詳情和記錄
+- `PUT /api/project/<project_id>` - 更新專案名稱
+- `DELETE /api/project/<project_id>` - 刪除專案
 
 ### 用戶 API
 - `POST /madetect` - 廣告檢測（需要 JWT 認證）
