@@ -1,0 +1,149 @@
+<!-- 模態框組件 -->
+
+<!-- 新增專案模態框 -->
+<div class="modal fade" id="create" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="createModalLabel">新增專案</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="create_title">
+                    <p>請輸入要新增的專案名稱</p>
+                </div>
+                <form>
+                    <div class="mb-3">
+                        <textarea class="form-control" id="create-project-name"></textarea>
+                    </div>
+                    <div class="from-group text-center">
+                        <button type="button" class="btn btn-info" data-bs-dismiss="modal" onclick="addProject()">新增</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 使用說明模態框 -->
+<div class="modal fade" id="question" tabindex="-1" aria-labelledby="questionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="questionModalLabel">使用說明</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text">
+                    <p>按下 <i class="fa-regular fa-square-plus"></i> 可新增專案<br>按下 <i class="fa-solid fa-pen-to-square"></i> 可修改專案名稱</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 編輯專案模態框 -->
+<div class="modal fade" id="edit" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="editModalLabel">變更專案名稱</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="create_title">
+                    <p>請輸入要變更的專案名稱</p>
+                </div>
+                <form>
+                    <div class="mb-3">
+                        <textarea class="form-control" id="edit-project-name"></textarea>
+                    </div>
+                    <div class="from-group text-center">
+                        <button type="button" class="btn btn-info" data-bs-dismiss="modal">變更</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 帳戶設定模態框 -->
+<div class="modal fade" id="account" tabindex="-1" aria-labelledby="accountModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="accountModalLabel">帳戶設定</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <input type="email" class="account form-control" placeholder="Email" disabled data-email="{{ session.get('user_email', '') }}">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="password form-control" placeholder="Password" disabled>
+                    </div>
+                    <div class="from-group text-center">
+                        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#changepassword">變更密碼</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 變更密碼模態框 -->
+<div class="modal fade" id="changepassword" tabindex="-1" aria-labelledby="changepasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="changepasswordModalLabel">變更密碼</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <p>請輸入原本的密碼</p>
+                        <input type="password" class="ch_password form-control" id="floatingPassword1">
+                        <i id="checkEye1" class="fas fa-eye"></i>
+                    </div>
+                    <div class="form-group">
+                        <p>請輸入要修改的密碼</p>
+                        <input type="password" class="ch_password form-control" id="floatingPassword2">
+                        <i id="checkEye2" class="fas fa-eye"></i>
+                    </div>
+                    <div class="form-group">
+                        <p>請再次輸入要修改的密碼</p>
+                        <input type="password" class="ch_password form-control" id="floatingPassword3">
+                        <i id="checkEye3" class="fas fa-eye"></i>
+                    </div>
+                    <div class="from-group text-center">
+                        <button type="button" class="btn btn-info change_btn" data-bs-toggle="modal" data-bs-target="#changepassword">變更密碼</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 問題回報模態框 -->
+<div class="modal fade" id="report" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="reportModalLabel">問題回報</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="reportForm" action="/report" method="post">
+                    <div class="mb-3">
+                        <textarea class="form-control" id="report-message-text" name="report"></textarea>
+                    </div>
+                    <div class="from-group text-center">
+                        <button type="submit" class="btn btn-info">回報</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

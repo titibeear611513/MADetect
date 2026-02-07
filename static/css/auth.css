@@ -1,0 +1,239 @@
+/**
+ * 統一的認證頁面樣式
+ * 用於登入、註冊、忘記密碼、重設密碼等頁面
+ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Chewy', cursive;
+}
+
+/* 背景圖片 */
+body::before {
+    content: '';
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    filter: blur(4px);
+    z-index: -1;
+}
+
+/* 用戶頁面背景 */
+body.user-auth::before {
+    background-image: url("../pic/userbackground.jpg");
+}
+
+/* 管理員頁面背景 */
+body.admin-auth::before {
+    background-image: url("../pic/adminbackground.jpg");
+}
+
+/* 標題區域 */
+.topic {
+    position: absolute;
+    left: 30px;
+    top: 20px;
+    z-index: 10;
+}
+
+.topic a {
+    font-size: 32px;
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Chewy', cursive;
+    filter: drop-shadow(1px 1px 0.5px rgba(105, 105, 105, 0.7));
+}
+
+/* 表單容器 */
+.auth-container {
+    position: relative;
+    min-height: 100vh;
+}
+
+.contact-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 550px;
+    min-height: 500px;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 55px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.contact-form h1 {
+    font-size: 64px;
+    margin: 0;
+    padding: 0 0 20px;
+    color: black;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.contact-form h2 {
+    font-size: 32px;
+    margin: 0;
+    padding: 0 0 20px;
+    color: #666;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+/* 表單元素 */
+.contact-form p {
+    margin: 15px 0 5px;
+    padding: 0;
+    font-weight: bold;
+    color: #333;
+    font-size: 18px;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form input[type="password"],
+.contact-form input[type="name"] {
+    width: 100%;
+    margin-bottom: 20px;
+    border: none;
+    border-bottom: 2px solid #000;
+    background: transparent;
+    outline: none;
+    height: 40px;
+    color: #000;
+    font-size: 16px;
+    font-family: 'Chewy', cursive;
+    padding: 5px 0;
+}
+
+.contact-form input::placeholder {
+    color: #999;
+}
+
+/* 錯誤訊息 */
+.error-message {
+    color: red;
+    font-size: 16px;
+    margin: -10px 0 10px;
+    min-height: 20px;
+}
+
+/* 連結 */
+.forget-link {
+    text-align: right;
+    margin: -10px 0 10px;
+}
+
+.forget-link a {
+    color: #0066cc;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.forget-link a:hover {
+    text-decoration: underline;
+}
+
+/* 切換連結 */
+.switch-link {
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+    font-size: 16px;
+}
+
+.switch-link a {
+    color: #0066cc;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.switch-link a:hover {
+    text-decoration: underline;
+}
+
+/* 按鈕 */
+.contact-form button {
+    width: 100%;
+    margin-bottom: 10px;
+    border: none;
+    outline: none;
+    height: 50px;
+    color: #fff;
+    font-size: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    cursor: pointer;
+    border-radius: 25px;
+    font-family: 'Chewy', cursive;
+    transition: all 0.3s ease;
+}
+
+.contact-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.contact-form button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* 表單操作區域 */
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-back {
+    flex: 1;
+    height: 50px;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 18px;
+    background: #FFC0CB;
+    cursor: pointer;
+    border-radius: 25px;
+    font-family: 'Chewy', cursive;
+    transition: all 0.3s ease;
+}
+
+.btn-back:hover {
+    background: #ffb0c0;
+    transform: translateY(-2px);
+}
+
+.contact-form button[type="submit"] {
+    flex: 2;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .contact-form {
+        width: 90%;
+        max-width: 500px;
+        padding: 30px 20px;
+    }
+    
+    .contact-form h1 {
+        font-size: 48px;
+    }
+    
+    .contact-form h2 {
+        font-size: 24px;
+    }
+}

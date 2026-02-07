@@ -1,0 +1,72 @@
+<!-- 側邊欄組件 -->
+<div class="side">
+        <div class="header">
+            <div class="name">
+                <a class="name" href="">MADetect</a>
+            </div>
+        </div>
+        
+        <div class="l_create">
+            <div class="l_create_l">
+                <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#create">
+                    <i class="fa-regular fa-square-plus"></i>
+                </a>
+            </div>
+            <div class="l_create_r">
+                <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#question">
+                    <i class="fa-solid fa-circle-question"></i>
+                </a>
+            </div>
+        </div>
+        
+        <div class="l_middle">
+            {% if projects %}
+                {% for project in projects %}
+                <div class="title">
+                    <div class="text">{{ project.name }}</div>
+                    <div class="icon">
+                        <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#edit">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                    </div>
+                    <div class="icon">
+                        <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#delete">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <!-- 預設專案列表（如果沒有傳入 projects） -->
+                <div class="title">
+                    <div class="text">減肥</div>
+                    <div class="icon">
+                        <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#edit">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                    </div>
+                    <div class="icon">
+                        <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#delete">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        
+        <!-- 問題回報 -->
+        <div class="l_report">
+            <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#report">問題回報</a>
+        </div>
+        
+        <div class="l_bottom">
+            <!-- 帳號設定 -->
+            <div class="l_bottom_l">
+                <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#account" class="l_word">Setting</a>
+            </div>
+            <!-- 登出 -->
+            <div class="l_bottom_r">
+                <a class="r_word" href="/signout">Log Out</a>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,29 @@
+# 環境變數檔案（包含敏感資訊）
+.env
+
+# API Key 檔案（舊的方式，已改用環境變數）
+static/doc/apikey.txt
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+dist/
+*.egg-info/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db

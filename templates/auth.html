@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page_title }} - MADetect{% endblock %}
+
+{% block stylesheets %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+{% endblock %}
+
+{% block body %}
+<body class="{% if form_type == 'admin_login' %}admin-auth{% else %}user-auth{% endif %}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="topic">
+        <a href="/">MADetect</a>
+    </div>
+    <div class="contact-form">
+        <h1>{{ page_title }}</h1>
+        {% if subtitle %}
+        <h2>{{ subtitle }}</h2>
+        {% endif %}
+        
+        <form id="auth-form" method="post">
+            {% if form_type == 'signup' %}
+                <!-- 註冊表單 -->
+                <p>Name</p>
+                <input type="text" required placeholder="Enter Your Name" name="user_name" id="name">
+                
+                <p>Email</p>
+                <input type="email" required placeholder="Enter Your Email" name="user_email" id="email">
+                <p id="email-error" class="error-message"></p>
+                
+                <p>Password</p>
+                <input type="password" required placeholder="Enter Your Password" name="user_password" id="password">
+                
+                <p>Confirm Password</p>
+                <input type="password" required placeholder="Enter Your Password Again" name="user_password_confirm" id="password-confirm">
+                <p id="confirm_password-error" class="error-message"></p>
+                
+            {% elif form_type == 'forget' %}
+                <!-- 忘記密碼表單 -->
+                <p>Name</p>
+                <input type="text" required placeholder="Enter Your Name" name="user_name" id="name">
+                
+                <p>Email</p>
+                <input type="email" required placeholder="Enter Your Email" name="user_email" id="email">
+                <p id="forget-error-message" class="error-message"></p>
+                
+            {% elif form_type == 'reset' %}
+                <!-- 重設密碼表單 -->
+                <p>New Password</p>
+                <input type="password" required placeholder="Enter Your New Password" name="user_password" id="password">
+                
+                <p>Confirm Password</p>
+                <input type="password" required placeholder="Enter Your New Password Again" name="user_password_confirm" id="password-confirm">
+                <p id="reset_password-error" class="error-message"></p>
+                
+            {% else %}
+                <!-- 登入表單（預設） -->
+                <p>Email</p>
+                <input type="email" required placeholder="Enter Your Email" name="user_email" id="email">
+                
+                <p>Password</p>
+                <input type="password" required placeholder="Enter Your Password" name="user_password" id="password">
+                
+                {% if form_type != 'admin_login' %}
+                <a href="/forgetpsw"><p class="forget-link">forget password?</p></a>
+                {% endif %}
+                
+                <p id="login-error" class="error-message"></p>
+            {% endif %}
+            
+            <div class="form-actions">
+                {% if form_type == 'reset' or form_type == 'forget' %}
+                <input type="button" value="< Back" class="btn-back" onclick="history.back()">
+                {% endif %}
+                <button type="submit">{{ submit_text }}</button>
+            </div>
+            
+            {% if form_type == 'login' %}
+            <p class="switch-link">Don't Have Account? <a href="/signup">Sign Up</a></p>
+            {% elif form_type == 'signup' %}
+            <p class="switch-link">Already Sign up? <a href="/login">Log in</a></p>
+            {% endif %}
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+<script src="{{ url_for('static', filename='js/auth-forms.js') }}"></script>
+<script>
+    // 設定表單類型
+    const formType = '{{ form_type }}';
+    const isAdmin = {{ 'true' if form_type == 'admin_login' else 'false' }};
+    
+    // 初始化表單處理
+    initAuthForm(formType, isAdmin);
+</script>
+{% endblock %}

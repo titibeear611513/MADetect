@@ -1,0 +1,87 @@
+/**
+ * 通用樣式檔案
+ * 包含所有頁面共用的基礎樣式
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Chewy&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Chewy', cursive;
+}
+
+/* 隱藏滾動條 */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* 通用按鈕樣式 */
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 18px;
+    font-family: 'Chewy', cursive;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn-secondary {
+    background: #FFC0CB;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 18px;
+    font-family: 'Chewy', cursive;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: #ffb0c0;
+    transform: translateY(-2px);
+}
+
+/* 通用輸入框樣式 */
+.input-field {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-bottom: 2px solid #000;
+    background: transparent;
+    outline: none;
+    font-size: 16px;
+    font-family: 'Chewy', cursive;
+    margin-bottom: 15px;
+}
+
+/* 通用錯誤訊息樣式 */
+.error-message {
+    color: red;
+    font-size: 16px;
+    margin: -10px 0 10px;
+    min-height: 20px;
+}
+
+/* 通用成功訊息樣式 */
+.success-message {
+    color: green;
+    font-size: 16px;
+    margin: -10px 0 10px;
+    min-height: 20px;
+}
