@@ -23,7 +23,7 @@ def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = Config.SECRET_KEY
     
-    # 啟用 CORS
+    # 啟用 CORS 
     if CORS_AVAILABLE:
         CORS(app, supports_credentials=True)
     
