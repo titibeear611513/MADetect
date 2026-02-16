@@ -9,7 +9,7 @@ from routes.user import user_bp
 from routes.api.auth_api import auth_api_bp
 from routes.api.project_api import project_api_bp
 
-# 嘗試導入 CORS（如果已安裝）
+# 嘗試導入 CORS
 try:
     from flask_cors import CORS
     CORS_AVAILABLE = True
