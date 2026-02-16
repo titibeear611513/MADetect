@@ -14,6 +14,8 @@ body {
 .l_container{
     display: flex;
     overflow-y: hidden;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .side{
@@ -209,6 +211,10 @@ body {
     background-color: #D9E7E5;
     overflow-y:auto;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
 }
 
 .r_side .r_container {
@@ -217,46 +223,57 @@ body {
     border: 4px solid #89BABA;
     border-radius: 10px;
     overflow: hidden;
-    width: 97%;
+    width: calc(100% - 40px);
+    max-width: 1600px;
+    min-width: 300px;
     background-color: white;
     justify-content: center;
-    margin-top: 20px;
-    margin-left: 20px;
-    margin-bottom: 20px;
+    margin: 20px auto;
+    box-sizing: border-box;
 }
 
 .r_side .title {
     text-align: center;
     font-weight: bold;
-    font-size: 24px;
+    font-size: clamp(20px, 2.4vw, 24px);
     background-color: #89BABA;
     color: white;
-    padding: 10px;
+    padding: clamp(8px, 1vw, 10px);
+    box-sizing: border-box;
+    flex-shrink: 0;
 }
 
 .input-block {
     background-color: white;
-    padding: 10px;
+    padding: clamp(8px, 1vw, 10px);
     margin: -2px;
+    box-sizing: border-box;
+    flex: 1;
+    min-width: 0;
 }
 
 .editable-content {
     width: 100%;
-    padding-left: 5px;
+    padding-left: clamp(4px, 0.5vw, 5px);
     border: none;
-    font-size: 24px;
+    font-size: clamp(20px, 2.4vw, 30px);
     outline: none;
     word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
     min-height: 120px;
+    box-sizing: border-box;
 }
 
 .button-container {
     display: flex;
     justify-content: flex-end;
     text-align: right;
-    max-width: 1600px;
     width: 100%;
-    margin-top: 10px;
+    margin-top: clamp(8px, 1vw, 10px);
+    padding: 0 clamp(8px, 1vw, 10px);
+    box-sizing: border-box;
+    flex-shrink: 0;
 }
 
 .custom-button {
@@ -274,9 +291,12 @@ body {
 .black-line {
     height: 4px;
     background-color: #4947A5;
-    margin-top: 20px;
-    width: 96%;
-    margin-left: 30px;
+    margin-top: clamp(16px, 2vw, 20px);
+    width: calc(100% - 60px);
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
 }
 
 /* 條列式文字樣式 */
@@ -316,46 +336,50 @@ body {
 /* 預設頁面樣式 */
 .default-page {
     max-width: 1200px;
-    margin: 20px auto;
+    width: calc(100% - 40px);
+    min-width: 300px;
+    margin: clamp(16px, 2vw, 20px) auto;
+    box-sizing: border-box;
 }
 
 .default-content {
-    padding: 30px;
+    padding: clamp(24px, 3vw, 30px);
     font-family: 'Chewy', cursive;
-    font-size: 18px;
+    font-size: clamp(16px, 1.8vw, 18px);
     line-height: 1.8;
     color: #333;
+    box-sizing: border-box;
 }
 
 .default-content h2 {
-    font-size: 32px;
+    font-size: clamp(26px, 3.2vw, 32px);
     color: #89BABA;
-    margin-bottom: 20px;
+    margin-bottom: clamp(16px, 2vw, 20px);
     margin-top: 0;
 }
 
 .default-content h3 {
-    font-size: 24px;
+    font-size: clamp(20px, 2.4vw, 24px);
     color: #89BABA;
-    margin-top: 30px;
-    margin-bottom: 15px;
+    margin-top: clamp(24px, 3vw, 30px);
+    margin-bottom: clamp(12px, 1.5vw, 15px);
 }
 
 .default-content p {
-    font-size: 20px;
-    margin-bottom: 25px;
+    font-size: clamp(18px, 2vw, 20px);
+    margin-bottom: clamp(20px, 2.5vw, 25px);
     color: #555;
 }
 
 .default-content ul {
     list-style-type: disc;
-    padding-left: 30px;
-    margin-bottom: 20px;
+    padding-left: clamp(24px, 3vw, 30px);
+    margin-bottom: clamp(16px, 2vw, 20px);
 }
 
 .default-content li {
-    margin-bottom: 12px;
-    font-size: 18px;
+    margin-bottom: clamp(10px, 1.2vw, 12px);
+    font-size: clamp(16px, 1.8vw, 18px);
     color: #444;
 }
 
