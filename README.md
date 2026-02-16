@@ -10,41 +10,17 @@ MADetect/
 ├── app.py                 # 主應用程式入口
 ├── config.py              # 配置檔案
 ├── database.py            # 資料庫連接模組
-├── routes/                # 路由模組（Blueprint）
-│   ├── main.py           # 主頁路由
-│   ├── auth.py            # 用戶認證路由（頁面）
-│   ├── user.py            # 用戶功能路由
+├── routes/                # 路由模組
 │   └── api/               # RESTful API 路由
-│       └── auth_api.py    # 認證 API（JWT）
 ├── models/                # 資料模型層
-│   ├── user_model.py      # 用戶資料操作
-│   ├── project_model.py   # 專案資料操作
-│   └── report_model.py    # 問題回報資料操作
 ├── utils/                 # 工具函數模組
-│   ├── gemini_service.py  # Gemini API 服務
-│   ├── text_utils.py      # 文字處理工具
-│   ├── file_utils.py      # 檔案處理工具
-│   └── jwt_utils.py       # JWT 認證工具
 ├── templates/             # HTML 模板
-│   ├── base.html         # 基礎模板
-│   ├── auth.html         # 統一認證頁面（登入/註冊/忘記密碼）
-│   ├── home.html         # 用戶主頁
-│   ├── components/        # 可重用組件
-│   │   ├── sidebar.html  # 側邊欄
-│   │   └── modals.html   # 模態框
-│   └── *.html            # 其他頁面模板
-├── static/               # 靜態檔案
-│   ├── css/              # 樣式表
-│   │   ├── auth.css      # 認證頁面樣式（統一）
-│   │   ├── common.css    # 通用樣式
-│   │   └── *.css         # 其他頁面樣式
-│   ├── js/               # JavaScript 檔案
-│   │   ├── auth.js       # 認證相關函數
-│   │   ├── auth-forms.js # 認證表單處理
-│   │   ├── home.js       # 主頁功能
-│   │   └── modal-handlers.js # 模態框處理
-│   ├── pic/              # 圖片
-│   └── doc/              # 文件資料
+│   └── components/        # 可重用組件
+├── static/                # 靜態檔案
+│   ├── css/               # 樣式表
+│   ├── js/                # JavaScript 檔案
+│   ├── pic/               # 圖片
+│   └── doc/               # 文件資料
 └── requirements.txt       # Python 依賴套件
 ```
 
